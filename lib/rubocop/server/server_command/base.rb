@@ -31,10 +31,11 @@ module RuboCop
           child.prepend Runner
         end
 
-        def initialize(args, token: '', cwd: Dir.pwd)
+        def initialize(args, token: '', cwd: Dir.pwd, cli: RuboCop::CLI.new)
           @args = args
           @token = token
           @cwd = cwd
+          @cli = cli
         end
 
         def run; end

@@ -19,6 +19,7 @@ module RuboCop
 
       def initialize(socket)
         @socket = socket
+        @cli = RuboCop::CLI.new
       end
 
       def read!
@@ -49,7 +50,12 @@ module RuboCop
       def create_command_instance(request)
         klass = find_command_class(request.header.command)
 
-        klass.new(request.header.args, token: request.header.token, cwd: request.header.cwd)
+        klass.new(
+          request.header.args,
+          token: request.header.token,
+          cwd: request.header.cwd,
+          cli: @cli
+        )
       end
 
       def find_command_class(command)
